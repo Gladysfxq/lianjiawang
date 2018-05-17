@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<title>二手房</title>
+	<link rel="stylesheet" type="text/css" href="./css/ershoufangblog.css">
+	<script type="text/javascript" src="./js/jquery-3.2.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+    <script type="text/javascript" src="./js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<header class="header">
+		 <div class="flexbox left">
+		     <div class="iconz"></div>
+		     <a href="javascript: void(0)">
+	             <span class="switch">
+	                 <em class="city">北京</em>
+	                 <i class="icon"></i>
+	             </span>
+		     </a>
+		</div>
+		<a href="javascript: void(0)">
+		        <span class="logo"></span>
+		</a>
+		<a href="javascript: void(0)" class="my">
+		        <i class="icon_user"></i>
+		     </a>
+	</header> 
+	    <div class="home_header">
+		     <div class="search_box">
+		         <i class="search_gray"></i>
+		         <input type="text" name="write" placeholder="输入小区或商圈开始找房咯~">
+		     </div>
+		</div>
+		<ul class="nav_ul">
+		   <li>
+		         <img src="./image/zhi.png">
+		         <a href="#">只能找房</a>
+		   </li>
+		    <li>
+		         <img src="./image/huan.png">
+		         <a href="#">只能找房</a>
+		   </li>
+		    <li>
+		         <img src="./image/quan.png">
+		         <a href="#">全部房源</a>
+		   </li>
+		</ul>
+		<div class="mod_box">
+		     <div class="mod_tit">为您推荐</div>
+		     <div class="recomm_scroll">
+		         <ul class="recomm_ul clearfix">
+		            <li>
+				         <a href="#">
+				            <div class="mask"></div>
+				             <img src="./image/a.jpg">
+				             <h3>适合小两口的生活之家</h3>
+				             <p>500万内帮您安家北京</p>
+				         </a>
+		             </li>
+		             <li>
+		                 <a href="#">
+		                     <div class="mask"></div>
+					         <img src="./image/b.jpg">
+					         <h3>适合小两口的生活之家</h3>
+					         <p>500万内帮您安家北京</p>
+				         </a>
+		             </li>
+		             <li>
+		                 <a href="#">
+		                     <div class="mask"></div>
+					         <img src="./image/c.jpg">
+					         <h3>适合小两口的生活之家</h3>
+					         <p>500万内帮您安家北京</p>
+					     </a>
+		             </li>
+		         </ul>
+		     </div>
+		</div>
+		<div class="mod_list house_lists" :class="isShowhide ? 'layered' : ''">
+		     <div class="tab_bar flexbox">
+		         <div class="tabtit boxcol" :class="isShowArea ? 'active' : ''">
+		             <h2 class="tit" @click="clickArea()">区域</h2>
+		             <i class="icontab" :class="isShowArea ? 'aicontab' : ''"></i>
+		         </div>
+		         <div class="tabtit boxcol" :class="isShowPrice ? 'active' : ''">
+		             <h2 class="tit" @click="clickPrice()">价格</h2>
+		             <i class="icontab" :class="isShowPrice ? 'aicontab' : ''"></i>
+		         </div>
+		         <div class="tabtit boxcol" :class="isShowModel? 'active' : ''">
+		             <h2 class="tit" @click="clickModel()">房型</h2>
+		             <i class="icontab" :class="isShowModel ? 'aicontab' : ''"></i>
+		         </div>
+		         <div class="tabtit boxcol" :class="isShowMore ? 'active' : ''">
+		             <h2 class="tit" @click="clickMore()">更多</h2>
+		             <i class="icontab" :class="isShowMore ? 'aicontab' : ''"></i>
+		         </div>
+		     </div>
+		</div>
+		<!-- <div class="layer_fixed b">
+		     <section class="layer_fixed filter b">
+		         <header class="tab_bar flexbox">
+		             <div class="tabtit boxcol active">
+			             <h2 class="tit">区域</h2>
+			             <i class="icontab"></i>
+		             </div>
+		              <div class="tabtit boxcol">
+			             <h2 class="tit">区域</h2>
+			             <i class="icontab"></i>
+		             </div>
+		              <div class="tabtit boxcol">
+			             <h2 class="tit">区域</h2>
+			             <i class="icontab"></i>
+		             </div>
+		              <div class="tabtit boxcol">
+			             <h2 class="tit">区域</h2>
+			             <i class="icontab"></i>
+		             </div>
+		         </header>
+		     </section>   
+		</div> -->
+		<div :class="isShowAll ? 'show' : 'hide'">
+			<div class="filter_item areas show " :class="isShowArea ? 'show' : 'hide'">
+			     <div class="arealists">
+			         <div class="nav">
+			             <ul>
+			                 <li @click="clickQu()">区域</li>
+			                 <li @click="clickDi()">地铁</li>
+			             </ul>
+			         </div>
+			         <div class="guide" :class="isShowQu ? 'show' : 'hide'" >
+			             <ul >
+			                 <li>不限</li>
+			                 <li @click="clickOne(itemb)" v-for="itemb in listb">{{ itemb.name }}</li>
+			                 <!-- <li>东城</li> -->
+			             </ul>
+			         </div>
+			         <div class="guide" :class="isShowDi ? 'show' : 'hide'">
+			             <ul>
+			                 <li>不限</li>
+			                 <li>1号线</li>
+			                 <li>1号线</li>
+			             </ul>
+			         </div>
+			         <div class="cont" :class="isShowD ? 'show' : 'hide'">
+			             <ul>
+			                 <li>不限</li>
+			                 <li v-for="(item,index) in district" v-text="item.name" >安定门</li>
+			             </ul>
+			         </div>
+			     </div>
+			</div>
+			<div class="filter_item prices" :class="isShowPrice ? 'show' : 'hide'">
+			     <ul class="priceslist">
+			         <li>不限</li>
+			         <li>200万以下</li>
+			         <li>200万以下</li>
+			         <li>200万以下</li>
+			         <li>200万以下</li>
+			     </ul>
+			</div>
+			<div class="filter_item models" :class="isShowModel ? 'show' : 'hide'">
+			     <ul class="modelslist">
+			         <li>一室</li>
+			         <li>两室</li>
+			         <li>两室</li>
+			         <li>两室</li>
+			         <li>两室</li>
+			     </ul>
+			</div>
+			<div class="filter_item mores" :class="isShowMore ? 'show' : 'hide'">
+			     <ul class="moreslist">
+			         <li>不限</li>
+			         <li>200万以下</li>
+			     </ul>
+			</div>
+		</div>
+		<div class="modcont">
+		     <ul v-for="item in houselist">
+		         <li class="pictext">
+		             <div class="media">
+		                 <img :src="item.image">
+		             </div>
+		             <div class="item_lists">
+	                    <div class="itlist"><a :href="'./ershoucheread.html?id='+item.id+''">{{ item.title }}</a></div>
+	                    <div class="itone " title="榆树馆西里二手房">{{ item.type}}/{{ item.area }}/{{ item.orientation }}/{{ item.xiaoqu }}</div>
+			             <span class="price_total"><em>639</em><span class="unit">万</span></span>
+			             <span class="unit_price">{{ item.unit_price }}</span>
+			             <div class="tag_box">
+			                 <span>地铁</span>
+			                 <span>地铁</span>
+			                 <span>地铁</span>
+			                 <span>地铁</span>
+			             </div>
+		             </div>
+		         </li>
+		     </ul>
+		      <ul>
+		         <li class="pictext">
+		             <div class="media">
+		                 <img src="./image/tou.jpg">
+		             </div>
+		             <div class="item_lists">
+	                    <div class="itlist">榆树馆西里，南北通透，满五年唯一精装小三居</div>
+	                    <div class="itone " title="榆树馆西里二手房">3室1厅/57.1m²/南 北/榆树馆西里</div>
+			             <span class="price_total"><em>639</em><span class="unit">万</span></span>
+			             <span class="unit_price">111909元/平</span>
+			             <div class="tag_box">
+			                 <span>地铁</span>
+			                 <span>地铁</span>
+			                 <span>地铁</span>
+			                 <span>地铁</span>
+			             </div>
+		             </div>
+		         </li>
+		     </ul>
+		</div>
+</div>
+	 <script type="text/javascript" src="./js/ershoufangblog.js"></script>
+</body>
+</html>
